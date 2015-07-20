@@ -18,9 +18,11 @@ import ships.ShipSystem;
  *
  * @author Christopher
  */
-public abstract class Cockpit extends PowerUser {
+public class Cockpit extends PowerUser {
     
     protected ArrayList<ControlItem> controls = new ArrayList<>();
+    
+    protected Cockpit(){}
     
     public void draw(Graphics g){
         Graphics2D g2 = (Graphics2D) g;
@@ -40,7 +42,7 @@ public abstract class Cockpit extends PowerUser {
     
     
     
-    protected abstract void drawDefaultVisuals(Graphics g, Camera c);
+    protected void drawDefaultVisuals(Graphics g, Camera c){}
     
     
     
@@ -72,6 +74,30 @@ public abstract class Cockpit extends PowerUser {
         
     }
     
-    public static Cockpit buildCockpit(){throw new UnsupportedOperationException("Not supported yet.");}
+    public static Cockpit buildCockpit(ControlItem[] ctrls){
+        
+        Cockpit result = new Cockpit();
+        
+        if(ctrls.length > 0){
+            for(int i = 0; i < ctrls.length; i++)
+                ctrls[i].setOwner(result);
+        }
+        
+        for(ControlItem ci : ctrls)
+            result.controls.add(ci);
+        
+        
+        return result;
+    }
+
+    @Override
+    public void execute(double time, Object... params) {
+        
+        super.execute(time, params);
+        
+        for(ControlItem ci : controls){
+            ci.execute(time, params);
+        }
+    }
     
 }

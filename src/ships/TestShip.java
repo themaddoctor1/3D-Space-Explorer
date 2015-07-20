@@ -5,7 +5,10 @@
  */
 package ships;
 
-import ships.cockpit.TestCockpit;
+import physics.Coordinate;
+import ships.cockpit.BlankScreen;
+import ships.cockpit.Cockpit;
+import ships.cockpit.ControlItem;
 import ships.powergeneration.*;
 
 /**
@@ -20,7 +23,15 @@ public class TestShip extends Ship{
         
         TestShip result = new TestShip();
         
-        result.addNewSubsystem(TestCockpit.buildCockpit());
+        result.addNewSubsystem(Cockpit.buildCockpit(
+                new ControlItem[]{
+                    new BlankScreen(new Coordinate(0.325,-0.2,0.42), Math.PI/4.0, Math.PI/6.0, 0.4, 0.3),
+                    new BlankScreen(new Coordinate(0.5,-0.2,0), 0, Math.PI/6.0, 0.4, 0.3),
+                    new BlankScreen(new Coordinate(0.325,-0.2,-0.42), -Math.PI/4.0, Math.PI/6.0, 0.4, 0.3)
+                }
+        
+        ));
+        
         result.addNewSubsystem(new EnergyTesseract());
         result.addNewSubsystem(new CapacitantTesseract(Math.pow(10, 10)));
         

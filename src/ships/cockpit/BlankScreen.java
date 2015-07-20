@@ -26,7 +26,7 @@ public class BlankScreen extends Screen{
     @Override
     public void screenDetails(Graphics g, Camera c){
         
-        ((Graphics2D) g).setColor(new Color(24,24,24));
+        ((Graphics2D) g).setColor(Color.white);
         /*
         for(int i = 0; i <= 5; i++){
             Coordinate a = this.getSurfacePosition(0.1*i, 0);

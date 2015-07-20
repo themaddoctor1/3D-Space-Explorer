@@ -51,7 +51,9 @@ public abstract class Screen extends ControlItem{
         shape.fillShape(g, c);
         
         //Draw stuff on the screen
-        if(isOn()) screenDetails(g, c);
+        if(isOn()){
+            screenDetails(g, c);
+        }
         
         g2.setColor(Color.GRAY);
         shape.drawShape(g, c);

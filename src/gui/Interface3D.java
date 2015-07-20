@@ -13,7 +13,6 @@ import java.awt.Graphics2D;
 import physics.Coordinate;
 import ships.Ship;
 import ships.cockpit.Cockpit;
-import ships.cockpit.TestCockpit;
 import world.WorldManager;
 
 /**

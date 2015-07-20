@@ -12,21 +12,21 @@ package ships;
 public abstract class PowerUser extends ShipSystem{
     
     protected boolean activated = true;
-    protected double wattage;
+    protected double wattage = 0;
     
     @Override
     public double getEnergyDemand(double time){
-        if(!isPowered(time * wattage))
+        if(activated)
             return wattage * time;
-        else{
-            deactivate();
+        else
             return 0;
-        }
+        
     }
     
     @Override
     public void execute(double time, Object... params){
-        
+        if(this.isPowered(getEnergyDemand(time)))
+            this.useEnergy(getEnergyDemand(time));
     }
     
     @Override
