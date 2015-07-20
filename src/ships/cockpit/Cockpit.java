@@ -72,4 +72,6 @@ public abstract class Cockpit extends PowerUser {
         
     }
     
+    public static Cockpit buildCockpit(){throw new UnsupportedOperationException("Not supported yet.");}
+    
 }

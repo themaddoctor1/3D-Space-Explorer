@@ -16,8 +16,9 @@ public abstract class PowerStorage extends ShipSystem{
     private double energy = 0;
     private final double ENERGY_LIMIT;
     
-    public PowerStorage(double limit){
+    public PowerStorage(double limit, double precharge){
         ENERGY_LIMIT = limit;
+        energy = Math.max(0, Math.min(precharge, ENERGY_LIMIT));
     }
     
     @Override

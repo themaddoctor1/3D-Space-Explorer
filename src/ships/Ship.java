@@ -47,8 +47,9 @@ public abstract class Ship extends ShipSystem{
     @Override
     public void execute(double time, Object... params) {
         
-        for(ShipSystem sys : subsystems)
+        for(ShipSystem sys : subsystems){
             sys.execute(time, params);
+        }
     }
 
     @Override
@@ -70,8 +71,9 @@ public abstract class Ship extends ShipSystem{
         //Counts how many Joules of energy are available for the system requesting some.
         double available = 0;
         
-        for(ShipSystem ss : subsystems)
+        for(ShipSystem ss : subsystems){
             if(ss instanceof PowerStorage) available += ((PowerStorage) ss).getStoredEnergy();
+        }
         
         return needed <= available;
         
@@ -81,6 +83,11 @@ public abstract class Ship extends ShipSystem{
     @Override
     public void useEnergy(double amt){
         
+        if(amt < 0){
+            storeEnergy(-amt);
+            return;
+        }
+        
         if(!isPowered(amt))
             return;
         
@@ -89,6 +96,14 @@ public abstract class Ship extends ShipSystem{
         for(ShipSystem ss : subsystems)
             if(ss instanceof PowerStorage) amountLeft = ((PowerStorage) ss).takeEnergy(amountLeft);
         
+    }
+    
+    protected void storeEnergy(double amt){
+        
+        double amountLeft = amt;
+        
+        for(ShipSystem ss : subsystems)
+            if(ss instanceof PowerStorage) amountLeft = ((PowerStorage) ss).storeEnergy(amountLeft);
     }
     
     

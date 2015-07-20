@@ -11,7 +11,7 @@ package ships;
  */
 public abstract class PowerUser extends ShipSystem{
     
-    protected boolean activated = false;
+    protected boolean activated = true;
     protected double wattage;
     
     @Override

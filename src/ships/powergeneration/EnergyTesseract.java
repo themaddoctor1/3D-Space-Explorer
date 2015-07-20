@@ -26,7 +26,7 @@ public class EnergyTesseract extends PowerProducer{
 
     @Override
     public void execute(double time, Object... params) {
-        
+        this.useEnergy(this.getEnergyDemand(time));
     }
 
     @Override

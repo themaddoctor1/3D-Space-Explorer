@@ -18,7 +18,7 @@ import physics.Coordinate;
 public class TestCockpit extends Cockpit{
     
     
-    public TestCockpit(){
+    protected TestCockpit(){
         super();
         
         controls.add(new BlankScreen(new Coordinate(0.325,-0.2,0.42), Math.PI/4.0, Math.PI/6.0, 0.4, 0.3));
@@ -46,6 +46,17 @@ public class TestCockpit extends Cockpit{
         }
         
         //(new Screen(new Coordinate(0.5,0,0), x, Math.PI/3.0, 0.4, .3)).draw(g, new Camera(new Coordinate(0,0,0),0,0));*/
+    }
+    
+    
+    public static Cockpit buildCockpit(){
+        TestCockpit result = new TestCockpit();
+        
+        for(ControlItem ci : result.controls)
+            ci.setOwner(result);
+        
+        return result;
+        
     }
     
 }

@@ -12,7 +12,7 @@ package ships.powergeneration;
 public class CapacitantTesseract extends PowerStorage{
 
     public CapacitantTesseract(double limit) {
-        super(limit);
+        super(limit, limit);
     }
 
     @Override

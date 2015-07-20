@@ -30,7 +30,7 @@ public abstract class Screen extends ControlItem{
     }
     
     @Override
-    public void draw(Graphics g, Camera c){
+    public final void draw(Graphics g, Camera c){
         
         Graphics2D g2 = (Graphics2D) g;
         

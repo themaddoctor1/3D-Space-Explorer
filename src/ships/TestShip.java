@@ -20,9 +20,12 @@ public class TestShip extends Ship{
         
         TestShip result = new TestShip();
         
-        result.addNewSubsystem(new TestCockpit());
+        result.addNewSubsystem(TestCockpit.buildCockpit());
         result.addNewSubsystem(new EnergyTesseract());
         result.addNewSubsystem(new CapacitantTesseract(Math.pow(10, 10)));
+        
+        for(ShipSystem ss : result.subsystems)
+            ss.setOwner(result);
         
         
         return result;
