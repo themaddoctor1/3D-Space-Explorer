@@ -7,9 +7,11 @@ package ships.cockpit;
 
 import gui.Camera;
 import gui.Interface;
+import gui.Interface3D;
 import gui.shapes.CurvedPolygon;
 import gui.shapes.Rectangle3D;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -96,11 +98,62 @@ public abstract class Screen extends ControlItem{
         
     }
     
+    public void drawString(Graphics g, Camera c, String s, int x, int y){
+        
+        String fontType = g.getFont().getFontName();
+        int fontSize = g.getFont().getSize();
+        int fontStyle = g.getFont().getStyle();
+        
+        Graphics2D g2 = (Graphics2D) g;
+        
+        for(int i = 0; i < s.length(); i++){
+            String ch = s.substring(i,i+1);
+            
+            double X = x + fontSize * i * 0.75;
+            double Y = y + fontSize;
+            
+            int[] res = getResolution();
+            
+            if(res[0] - X < 0.75 * fontSize || res[1] - Y < fontSize)
+                continue;
+            else if(X < 0 || Y < 0)
+                continue;
+            
+            double [] resPos = {X / res[0], Y / res[1]};
+            
+            //System.out.println(resPos[0] + "," + resPos[1]);
+            
+            Coordinate coord = this.getSurfacePosition(resPos[0], resPos[1]);
+            
+            
+            double pixelSize = Interface3D.getInterface3D().getPixelsPerRadian() / (1000 * Coordinate.relativeDistance(c.getPosition(), coord));
+            
+            int[] graphicsPos = c.getPlanarCoordinate(coord);
+            g2.setFont(new Font("Courier New", fontStyle, (int)(fontSize * pixelSize)));
+            
+            g2.drawString(ch, graphicsPos[0], graphicsPos[1]);
+            
+        }
+        
+        g2.setFont(new Font(fontType, fontStyle, fontSize));
+    }
+    
+    
     @Override
     public void setOutput(ShipComputer comp) {
         super.setOutput(comp);
         for(ControlItem c : subitems)
             c.setOutput(comp);
+    }
+    
+    public int[] getResolution(){
+        
+        double pixelPerMeter = 1000;
+        
+        return new int[]{
+            (int)(((Rectangle3D) shape).WIDTH * pixelPerMeter),
+            (int)(((Rectangle3D) shape).HEIGHT * pixelPerMeter)
+        };
     }
 
     
