@@ -10,6 +10,8 @@ import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JFrame;
+import physics.Coordinate;
+import world.WorldManager;
 
 /**
  *
@@ -117,6 +119,7 @@ public class Interface extends Applet implements KeyListener, MouseListener, Mou
     
     @Override
     public void mouseClicked(MouseEvent me) {
+        WorldManager.getShip(0).getCockpit().interact(new Camera(new Coordinate(0,0,0),0,0), 0, mouseX, mouseY);
         mouseMoved(me);
     }
 

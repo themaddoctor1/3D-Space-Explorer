@@ -28,6 +28,8 @@ public class Main {
         
         WorldManager.addShip(TestShip.buildShip());
         
+        //System.out.println(WorldManager.getShips().size());
+        
         WorldManager.startSimulation();
         
         while(true)

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import physics.Coordinate;
 import physics.Vector;
 import ships.PowerUser;
+import ships.ShipComputer;
 
 /**
  *
@@ -95,7 +96,12 @@ public abstract class Screen extends ControlItem{
         
     }
     
-    
-    
+    @Override
+    public void setOutput(ShipComputer comp) {
+        super.setOutput(comp);
+        for(ControlItem c : subitems)
+            c.setOutput(comp);
+    }
+
     
 }

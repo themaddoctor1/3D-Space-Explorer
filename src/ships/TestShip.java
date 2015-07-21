@@ -23,17 +23,20 @@ public class TestShip extends Ship{
         
         TestShip result = new TestShip();
         
-        result.addNewSubsystem(Cockpit.buildCockpit(
-                new ControlItem[]{
-                    new BlankScreen(new Coordinate(0.325,-0.2,0.42), Math.PI/4.0, Math.PI/6.0, 0.4, 0.3),
-                    new BlankScreen(new Coordinate(0.5,-0.2,0), 0, Math.PI/6.0, 0.4, 0.3),
-                    new BlankScreen(new Coordinate(0.325,-0.2,-0.42), -Math.PI/4.0, Math.PI/6.0, 0.4, 0.3)
-                }
+        ControlItem[] controls = new ControlItem[]{
+            new BlankScreen(new Coordinate(0.325,-0.2,0.42), Math.PI/4.0, Math.PI/6.0, 0.4, 0.3),
+            new BlankScreen(new Coordinate(0.5,-0.2,0), 0, Math.PI/6.0, 0.4, 0.3),
+            new BlankScreen(new Coordinate(0.325,-0.2,-0.42), -Math.PI/4.0, Math.PI/6.0, 0.4, 0.3)
+        };
         
-        ));
+        result.addNewSubsystem(Cockpit.buildCockpit( controls ));
         
         result.addNewSubsystem(new EnergyTesseract());
-        result.addNewSubsystem(new CapacitantTesseract(Math.pow(10, 10)));
+        
+        result.addNewSubsystem(new CapacitantTesseract(Math.pow(10, 20)));
+        
+        ShipComputer shipComputer = new ShipComputer();
+        result.addNewSubsystem(shipComputer);
         
         for(ShipSystem ss : result.subsystems)
             ss.setOwner(result);

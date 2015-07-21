@@ -26,7 +26,7 @@ public class ShipComputer extends PowerUser{
     
     @Override
     public double getEnergyDemand(double time) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return super.getEnergyDemand(time);
     }
     
 }

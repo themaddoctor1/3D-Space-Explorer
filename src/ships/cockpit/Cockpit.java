@@ -99,5 +99,7 @@ public class Cockpit extends PowerUser {
             ci.execute(time, params);
         }
     }
+
+    public ArrayList<ControlItem> getControls() { return controls; }
     
 }

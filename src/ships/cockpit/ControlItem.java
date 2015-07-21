@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import physics.Coordinate;
 import physics.Vector;
 import ships.PowerUser;
+import ships.ShipComputer;
 
 /**
  *
@@ -19,6 +20,8 @@ import ships.PowerUser;
 public abstract class ControlItem extends PowerUser{
     
     protected Shape3D shape;
+    private ShipComputer output = null;
+    private boolean interacting = false;
     
     public ControlItem(Shape3D s, double watts){
         shape = s;
@@ -27,15 +30,27 @@ public abstract class ControlItem extends PowerUser{
     
     public void interact(Camera c, double time, int x, int y){
         if(willInteract(c,x,y))
-            execute(time);
+            output.executeProgram(getProgram());
+    }
+    
+    @Override
+    public void execute(double time, Object... params){
+        super.execute(time);
+        
+        interacting = false;
     }
     
     public boolean willInteract(Camera c, int x, int y){
-        return shape.contains(c, x, y);
+        return interacting = shape.contains(c, x, y);
     }
     
     
     public abstract void draw(Graphics g, Camera c);
     
+    public void setOutput(ShipComputer comp){ output = comp; }
+
+    private String[] getProgram() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
