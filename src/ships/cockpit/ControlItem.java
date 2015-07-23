@@ -20,8 +20,8 @@ import ships.ShipComputer;
 public abstract class ControlItem extends PowerUser{
     
     protected Shape3D shape;
-    private ShipComputer output = null;
-    private boolean interacting = false;
+    protected ShipComputer output = null;
+    protected boolean interacting = false;
     
     public ControlItem(Shape3D s, double watts){
         shape = s;
@@ -49,8 +49,6 @@ public abstract class ControlItem extends PowerUser{
     
     public void setOutput(ShipComputer comp){ output = comp; }
 
-    private String[] getProgram() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public abstract String[] getProgram(Object... params);
     
 }

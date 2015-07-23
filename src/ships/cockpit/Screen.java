@@ -156,5 +156,8 @@ public abstract class Screen extends ControlItem{
         };
     }
 
-    
+    @Override
+    public String[] getProgram(Object... params){
+        return new String[0];
+    }
 }

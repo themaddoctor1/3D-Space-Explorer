@@ -29,6 +29,7 @@ public class Interface extends Applet implements KeyListener, MouseListener, Mou
     protected JFrame frame;
     
     private int mouseX = 0, mouseY = 0;
+    private boolean mouseHeld = false;
     
     ////////////////////////////////////////////////////
     
@@ -119,6 +120,7 @@ public class Interface extends Applet implements KeyListener, MouseListener, Mou
     
     @Override
     public void mouseClicked(MouseEvent me) {
+        mouseHeld = true;
         WorldManager.getShip(0).getCockpit().interact(new Camera(new Coordinate(0,0,0),0,0), 0, mouseX, mouseY);
         mouseMoved(me);
     }
@@ -130,7 +132,7 @@ public class Interface extends Applet implements KeyListener, MouseListener, Mou
 
     @Override
     public void mouseReleased(MouseEvent me) {
-        
+        mouseHeld = false;
     }
 
     @Override
@@ -171,5 +173,6 @@ public class Interface extends Applet implements KeyListener, MouseListener, Mou
     
     public int getMouseX(){ return mouseX; }
     public int getMouseY(){ return mouseY; }
+    public boolean mouseHeldDown(){ return mouseHeld; }
     
 }

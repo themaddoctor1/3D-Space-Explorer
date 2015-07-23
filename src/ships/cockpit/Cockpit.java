@@ -30,7 +30,7 @@ public class Cockpit extends PowerUser {
         drawDefaultVisuals(g, new Camera(new Coordinate(0,0,0),0,0));
         
         for(ControlItem s : controls)
-            s.draw(g, new Camera(new Coordinate(0,0,0),Math.sin(System.currentTimeMillis()/1000.0),0));
+            s.draw(g, new Camera(new Coordinate(0,0,0),0*Math.sin(System.currentTimeMillis()/1000.0),0));
         
     }
     

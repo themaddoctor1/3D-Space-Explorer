@@ -9,6 +9,7 @@ import gui.Camera;
 import gui.Interface;
 import gui.Interface3D;
 import physics.Coordinate;
+import ships.ShipComputer;
 import ships.TestShip;
 import world.WorldManager;
 
@@ -23,10 +24,9 @@ public class Main {
      */
     public static void main(String[] args) {
         
+        WorldManager.addShip(TestShip.buildShip());
         
         Interface3D.initialize("Space Game", 1200, 900,new Camera(new Coordinate(0,0,0),0,0));
-        
-        WorldManager.addShip(TestShip.buildShip());
         
         //System.out.println(WorldManager.getShips().size());
         

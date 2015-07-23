@@ -51,7 +51,7 @@ public abstract class Button extends ControlItem{
             g.setColor(new Color(16,16,16));
         }
         
-        shape.drawShape(g, c);
+        shape.fillShape(g, c);
     }
     
     
@@ -73,6 +73,5 @@ public abstract class Button extends ControlItem{
         return c;
         
     }
-    
     
 }
