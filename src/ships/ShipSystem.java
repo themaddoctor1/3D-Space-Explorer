@@ -9,7 +9,7 @@ package ships;
  *
  * @author Christopher
  */
-public abstract class ShipSystem {
+public abstract class ShipSystem implements ComputerControlled{
     
     protected ShipSystem owner = null;
     
@@ -39,6 +39,21 @@ public abstract class ShipSystem {
         } catch(Exception e){
             return false;
         }
+    }
+    
+    @Override
+    public Object runScript(String function, String parameter){
+        switch(function){
+            case "activate":
+                activate();
+                break;
+            case "deactivate":
+                deactivate();
+                break;
+        }
+        
+        return null;
+        
     }
     
     

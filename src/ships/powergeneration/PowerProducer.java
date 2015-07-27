@@ -26,4 +26,22 @@ public abstract class PowerProducer extends ShipSystem{
     
     public abstract double getOutputWattage();
     
+    @Override
+    public Object runScript(String function, String parameter){
+        switch(function){
+            case "value":
+                switch(parameter){
+                    case "wattage":
+                        return getWattage();
+                    case "outputWattage":
+                        return getOutputWattage();
+                    case "isOn":
+                        return isOn();
+                }
+        }
+        
+        return super.runScript(function, parameter);
+        
+    }
+    
 }

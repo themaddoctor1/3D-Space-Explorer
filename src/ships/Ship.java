@@ -24,6 +24,9 @@ public abstract class Ship extends ShipSystem{
     
     public void addNewSubsystem(ShipSystem sys){
         subsystems.add(sys);
+        if(!(sys instanceof ShipComputer)) for(ShipSystem s : subsystems)
+            if(s instanceof ShipComputer)
+                ((ShipComputer) s).addDevice(sys);
     }
     
     

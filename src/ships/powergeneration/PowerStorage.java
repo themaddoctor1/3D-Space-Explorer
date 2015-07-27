@@ -22,14 +22,10 @@ public abstract class PowerStorage extends ShipSystem{
     }
     
     @Override
-    public void activate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void activate() {}
 
     @Override
-    public void deactivate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void deactivate() {}
 
     @Override
     public abstract void execute(double time, Object... params);
@@ -73,5 +69,25 @@ public abstract class PowerStorage extends ShipSystem{
 
     @Override
     public double getEnergyDemand(double time) { return 0; }
+    
+    @Override
+    public Object runScript(String function, String parameter){
+        switch(function){
+            case "value":
+                switch(parameter){
+                    case "storedEnergy":
+                        return getStoredEnergy();
+                    case "hasEnergy":
+                        return hasEnergy(0);
+                    case "wattage":
+                        return getWattage();
+                    case "isOn":
+                        return isOn();
+                }
+        }
+        
+        return super.runScript(function, parameter);
+        
+    }
     
 }

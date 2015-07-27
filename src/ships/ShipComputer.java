@@ -19,7 +19,17 @@ import ships.cockpit.ControlItem;
 public class ShipComputer extends PowerUser{
     
     //This Stack contains the programs' memory
-    Stack<HashMap<String, Object>> RAM = new Stack();
+    private Stack<HashMap<String, Object>> RAM = new Stack();
+    
+    //A list of every subclass of ComputerControlled that is under the influence of this ShipComputer
+    private ArrayList<ComputerControlled> connectedDevices = new ArrayList<>();
+    
+    
+    
+    public void addDevice(ComputerControlled device){
+        connectedDevices.add(device);
+    }
+    
     
     @Override
     public void execute(double time, Object... params) {
@@ -40,7 +50,7 @@ public class ShipComputer extends PowerUser{
     }
     
     public final void executeProgram(String[] program){
-        executeProgram(program, new HashMap<>());
+        executeProgram(program, new HashMap<String, Object>());
     }
     
     @Override
@@ -93,7 +103,20 @@ public class ShipComputer extends PowerUser{
                 
                 String parameter = line.substring(line.indexOf(" = ") + 3);
                 
-                dedicatedRAM.replace(variableName, parseValueOf(parameter, dedicatedRAM));
+                
+                dedicatedRAM.put(variableName, parseValueOf(parameter, dedicatedRAM));
+                
+            } else if(line.startsWith("System[")){
+                int index = Integer.parseInt(line.substring(7, line.indexOf("]")));
+                
+                System.out.println(line);
+                
+                String parameter = line.substring(line.indexOf("]") + 2);
+                
+                connectedDevices.get(index).runScript(
+                        parameter.substring(0, parameter.indexOf("|")), 
+                        parseValueOf(parameter.substring(parameter.indexOf("|")+1, parameter.length()-1), dedicatedRAM).toString()
+                );
                 
             }
             
@@ -105,7 +128,7 @@ public class ShipComputer extends PowerUser{
         }
     }
 
-    public static Object parseValueOf(Object parameter, HashMap<String, Object> ram) {
+    public Object parseValueOf(Object parameter, HashMap<String, Object> ram) {
         
         if(parameter instanceof String){
             
@@ -211,6 +234,16 @@ public class ShipComputer extends PowerUser{
                         return symbolicValues.get(0);
 
                 }
+            } else if(param.startsWith("System[")){
+                int index = Integer.parseInt(param.substring(7, param.indexOf("]")));
+                
+                String dataType = param.substring(param.indexOf("]" + 2));
+                
+                return connectedDevices.get(index).runScript(
+                        "value",
+                        param.substring(param.indexOf("]") + 2)
+                );
+                
             }
             
             return param;

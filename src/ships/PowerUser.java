@@ -38,7 +38,21 @@ public abstract class PowerUser extends ShipSystem{
     @Override
     public boolean isOn(){ return activated && isPowered(wattage); }
     
-    
+    @Override
+    public Object runScript(String function, String parameter){
+        switch(function){
+            case "value":
+                switch(parameter){
+                    case "wattage":
+                        return getWattage();
+                    case "isOn":
+                        return isOn();
+                }
+        }
+        
+        return super.runScript(function, parameter);
+        
+    }
     
     
 }
