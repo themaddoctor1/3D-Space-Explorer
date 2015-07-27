@@ -27,18 +27,27 @@ public class TestShip extends Ship{
         TestShip result = new TestShip();
         
         String[] testOn = {
-            "System[0] activate| "
+            "System[1] activate| ",
+            "System[2] activate| ",
+            "System[3] activate| "
+        };
+        
+        String[] testOff = {
+            "System[1] deactivate| ",
+            "System[2] deactivate| ",
+            "System[3] deactivate| "
         };
         
         
         ShipComputer shipComputer = new ShipComputer();
         result.addNewSubsystem(shipComputer);
+        shipComputer.addDevice(result);
         
         ControlItem[] controls = new ControlItem[]{
             new BlankScreen(new Coordinate(0.325,-0.2,0.42), Math.PI/4.0, Math.PI/6.0, 0.4, 0.3),
             new BlankScreen(new Coordinate(0.5,-0.2,0), 0, Math.PI/6.0, 0.4, 0.3),
             new BlankScreen(new Coordinate(0.325,-0.2,-0.42), -Math.PI/4.0, Math.PI/6.0, 0.4, 0.3),
-            new ToggleButton(new Rectangle3D(new Coordinate(0.5,-0.2,0), 0, Math.PI/6.0, 0.04, 0.03), Color.GREEN, Color.RED, testOn, new String[]{"System[0] deactivate| "}, false)
+            new ToggleButton(new Rectangle3D(new Coordinate(0.5,-0.2,0), 0, Math.PI/6.0, 0.04, 0.03), Color.GREEN, Color.RED, testOn,testOff, false)
         };
         
         for(ControlItem ci : controls)

@@ -109,8 +109,6 @@ public class ShipComputer extends PowerUser{
             } else if(line.startsWith("System[")){
                 int index = Integer.parseInt(line.substring(7, line.indexOf("]")));
                 
-                System.out.println(line);
-                
                 String parameter = line.substring(line.indexOf("]") + 2);
                 
                 connectedDevices.get(index).runScript(
