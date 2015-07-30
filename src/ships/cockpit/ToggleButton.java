@@ -38,11 +38,11 @@ public class ToggleButton extends Button{
     @Override
     public void interact(Camera c, double time, int x, int y) {
         if(willInteract(c,x,y)){
+            output.executeProgram(getProgram());
             if(isOn())
                 deactivate();
             else if(isPowered(getEnergyDemand(time)))
                 activate();
-            output.executeProgram(getProgram());
         }
     }
 

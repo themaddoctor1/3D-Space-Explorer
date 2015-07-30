@@ -50,6 +50,12 @@ public abstract class ShipSystem implements ComputerControlled{
             case "deactivate":
                 deactivate();
                 break;
+            case "toggle":
+                if(isOn())
+                    deactivate();
+                else
+                    activate();
+                break;
         }
         
         return null;

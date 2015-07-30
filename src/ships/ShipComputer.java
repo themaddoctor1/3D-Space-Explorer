@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 import ships.cockpit.ControlItem;
+import ships.cockpit.Screen;
 
 /**
  *
@@ -28,6 +29,9 @@ public class ShipComputer extends PowerUser{
     
     public void addDevice(ComputerControlled device){
         connectedDevices.add(device);
+        if(device instanceof Screen)
+            for(ControlItem ci : ((Screen)device).getSubitems())
+                addDevice(ci);
     }
     
     

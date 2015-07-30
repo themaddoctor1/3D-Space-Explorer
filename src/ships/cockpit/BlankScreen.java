@@ -40,6 +40,10 @@ public class BlankScreen extends Screen{
         */
         
         shape.fillShape(g, c);
+
+        for(ControlItem ci : subitems)
+            ci.draw(g, c);
+
         
     }
     

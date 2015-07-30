@@ -15,6 +15,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+
+import org.w3c.dom.css.Rect;
 import physics.Coordinate;
 import physics.Vector;
 import ships.PowerUser;
@@ -72,7 +74,7 @@ public abstract class Screen extends ControlItem{
     
     @Override
     public void interact(Camera c, double time, int x, int y){
-        if(willInteract(c,x,y)) for(ControlItem ci : subitems)
+        if(willInteract(c,x,y) && isOn()) for(ControlItem ci : subitems)
             ci.interact(c, time, x, y);
     }
     
@@ -97,7 +99,31 @@ public abstract class Screen extends ControlItem{
         return c;
         
     }
-    
+
+    public void addSubitem(ControlItem ci, int x, int y){
+        if(ci.shape instanceof Rectangle3D){
+
+            Rectangle3D itemShape = (Rectangle3D) ci.shape;
+            Rectangle3D thisShape = (Rectangle3D) this.shape;
+
+            double width = itemShape.WIDTH * pixelDensity();
+            double height = itemShape.HEIGHT * pixelDensity();
+
+            if(x + width > getResolution()[0] || y + width > getResolution()[1])
+                return;
+
+            double centX = (2*x+width)/(2.0 * getResolution()[0]), centY = (2*y+height)/(2.0 * getResolution()[1]);
+
+            Coordinate centPos = getSurfacePosition(centX, centY);
+
+            ci.setShape(new Rectangle3D(centPos, thisShape.XZ, thisShape.Y, itemShape.WIDTH, itemShape.HEIGHT));
+            subitems.add(ci);
+
+            return;
+
+        }
+    }
+
     public void drawString(Graphics g, Camera c, String s, int x, int y){
         
         String fontType = g.getFont().getFontName();
@@ -145,16 +171,20 @@ public abstract class Screen extends ControlItem{
         for(ControlItem c : subitems)
             c.setOutput(comp);
     }
-    
+
+    public final double pixelDensity(){ return 1000; }
+
     public int[] getResolution(){
         
-        double pixelPerMeter = 1000;
+        double pixelPerMeter = pixelDensity();
         
         return new int[]{
             (int)(((Rectangle3D) shape).WIDTH * pixelPerMeter),
             (int)(((Rectangle3D) shape).HEIGHT * pixelPerMeter)
         };
     }
+
+    public ArrayList<ControlItem> getSubitems(){ return subitems; }
 
     @Override
     public String[] getProgram(Object... params){

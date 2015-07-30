@@ -8,10 +8,7 @@ package ships;
 import gui.shapes.Rectangle3D;
 import java.awt.Color;
 import physics.Coordinate;
-import ships.cockpit.BlankScreen;
-import ships.cockpit.Cockpit;
-import ships.cockpit.ControlItem;
-import ships.cockpit.ToggleButton;
+import ships.cockpit.*;
 import ships.powergeneration.*;
 
 /**
@@ -27,15 +24,15 @@ public class TestShip extends Ship{
         TestShip result = new TestShip();
         
         String[] testOn = {
-            "System[1] activate| ",
-            "System[2] activate| ",
-            "System[3] activate| "
+                "System[1] toggle| ",
+                //"System[2] toggle| ",
+                "System[4] toggle| "
         };
         
         String[] testOff = {
-            "System[1] deactivate| ",
-            "System[2] deactivate| ",
-            "System[3] deactivate| "
+                "System[1] toggle| ",
+                //"System[2] toggle| ",
+                "System[4] toggle| "
         };
         
         
@@ -47,9 +44,14 @@ public class TestShip extends Ship{
             new BlankScreen(new Coordinate(0.325,-0.2,0.42), Math.PI/4.0, Math.PI/6.0, 0.4, 0.3),
             new BlankScreen(new Coordinate(0.5,-0.2,0), 0, Math.PI/6.0, 0.4, 0.3),
             new BlankScreen(new Coordinate(0.325,-0.2,-0.42), -Math.PI/4.0, Math.PI/6.0, 0.4, 0.3),
-            new ToggleButton(new Rectangle3D(new Coordinate(0.5,-0.2,0), 0, Math.PI/6.0, 0.04, 0.03), Color.GREEN, Color.RED, testOn,testOff, false)
+            null
         };
-        
+
+        controls[3] = new ToggleButton(new Rectangle3D(((Screen) controls[1]).getSurfacePosition(0.5,1.05), 0, Math.PI/6.0, 0.04, 0.03), Color.GREEN, Color.RED, testOn,testOff, false);
+
+        ((Screen) controls[1]).addSubitem(new ToggleButton(new Rectangle3D(new Coordinate(0.5,-0.2,0), 0, Math.PI/6.0, 0.04, 0.03), Color.GREEN, Color.RED, testOn,testOff, false), 180, 135);
+        ((Screen) controls[1]).getSubitems().get(0).setOwner(controls[1]);
+
         for(ControlItem ci : controls)
             shipComputer.addDevice(ci);
         

@@ -29,7 +29,7 @@ public abstract class ControlItem extends PowerUser{
     }
     
     public void interact(Camera c, double time, int x, int y){
-        if(willInteract(c,x,y))
+        if(willInteract(c,x,y) && owner.isOn())
             output.executeProgram(getProgram());
     }
     
@@ -50,5 +50,9 @@ public abstract class ControlItem extends PowerUser{
     public void setOutput(ShipComputer comp){ output = comp; }
 
     public abstract String[] getProgram(Object... params);
+
+    protected void setShape(Shape3D s){
+        shape = s;
+    }
     
 }
